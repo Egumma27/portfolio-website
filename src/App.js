@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
+import "react-pro-sidebar/dist/css/styles.css";
 import Home from "./sections/Home";
 import About from "./sections/About";
 import Skills from "./sections/Skills";
@@ -26,31 +28,32 @@ function App() {
   };
 
   return (
-    <div style={{ fontFamily: "Arial, sans-serif", maxWidth: "900px", margin: "0 auto", padding: "20px" }}>
-      {/* Navigation */}
-      <header style={{ marginBottom: "20px" }}>
-        <nav style={{ display: "flex", justifyContent: "space-around", padding: "10px 0", borderBottom: "2px solid #ddd" }}>
-          <button onClick={() => setCurrentSection("home")} style={navButtonStyle}>Home</button>
-          <button onClick={() => setCurrentSection("about")} style={navButtonStyle}>About</button>
-          <button onClick={() => setCurrentSection("skills")} style={navButtonStyle}>Skills</button>
-          <button onClick={() => setCurrentSection("experience")} style={navButtonStyle}>Experience</button>
-          <button onClick={() => setCurrentSection("projects")} style={navButtonStyle}>Projects</button>
-        </nav>
-      </header>
+    <div style={{ display: "flex", height: "100vh" }}>
+      {/* Sidebar */}
+      <ProSidebar style={{ minHeight: "100vh", backgroundColor: "#333" }}>
+        <Menu iconShape="square">
+          <MenuItem style={{ color: "#fff" }} onClick={() => setCurrentSection("home")}>
+            Home
+          </MenuItem>
+          <MenuItem style={{ color: "#fff" }} onClick={() => setCurrentSection("about")}>
+            About
+          </MenuItem>
+          <MenuItem style={{ color: "#fff" }} onClick={() => setCurrentSection("skills")}>
+            Skills
+          </MenuItem>
+          <MenuItem style={{ color: "#fff" }} onClick={() => setCurrentSection("experience")}>
+            Experience
+          </MenuItem>
+          <MenuItem style={{ color: "#fff" }} onClick={() => setCurrentSection("projects")}>
+            Projects
+          </MenuItem>
+        </Menu>
+      </ProSidebar>
 
       {/* Main Content */}
-      <main>{renderSection()}</main>
+      <div style={{ flex: 1, padding: "20px" }}>{renderSection()}</div>
     </div>
   );
 }
-
-const navButtonStyle = {
-  background: "none",
-  border: "none",
-  fontSize: "1.2em",
-  cursor: "pointer",
-  color: "#333",
-  padding: "5px 10px",
-};
 
 export default App;
