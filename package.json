@@ -2,7 +2,7 @@
   "name": "resume-website",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://egumma27.github.io/",
+  "homepage": "https://egumma27.github.io/portfolio-website",
   "dependencies": {
     "cra-template": "1.2.0",
     "react": "^19.0.0",
