@@ -28,18 +28,6 @@
   color: #61dafb;
 }
 
-.pro-sidebar {
-  background-color: #222 !important;
-}
-
-.pro-menu-item {
-  font-size: 1.2em;
-  color: #fff !important;
-}
-
-.pro-menu-item:hover {
-  background-color: #444 !important;
-}
 
 @keyframes App-logo-spin {
   from {
