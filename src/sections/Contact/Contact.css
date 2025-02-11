@@ -1,0 +1,70 @@
+/* Container for the contact page */
+.contact-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Heading styling */
+  .contact-container h2 {
+    margin-bottom: 20px;
+    font-size: 2em;
+  }
+  
+  /* Paragraph styling for contact info */
+  .contact-container p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+  
+  /* Link styling for email and phone */
+  .email-link,
+  .phone-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .email-link:hover,
+  .phone-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* LinkedIn container: aligns logo and text */
+  .linkedin-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  
+  /* Make only the logo clickable */
+  .linkedin-logo-link {
+    text-decoration: none;
+  }
+  
+  /* LinkedIn logo image */
+  .linkedin-logo {
+    height: 24px;
+    width: 24px;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Hover effect for the clickable logo */
+  .linkedin-logo-link:hover .linkedin-logo {
+    transform: scale(1.1);
+  }
+  
+  /* Text displayed next to the logo */
+  .linkedin-text {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text-color);
+  }
+  

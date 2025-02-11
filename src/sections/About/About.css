@@ -1,0 +1,19 @@
+.about-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  
+  .about-heading {
+    font-size: 2em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .about-text {
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.6;
+  }
+  
