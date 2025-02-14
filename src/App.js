@@ -7,24 +7,25 @@ import About from "./sections/About/About";
 import Skills from "./sections/Skills/Skills";
 import Experience from "./sections/Experience/Experience";
 import Projects from "./sections/Projects/Projects";
-import Contact from "./sections/Contact/Contact";  // New Contact page
+import Contact from "./sections/Contact/Contact";
 import "./App.css";
 import profileImage from "./assets/IMG_1092.png";
 
-// Define four theme objects.
+// Theme objects
 const lightTheme = {
   primaryColor: "#f0f2f5",
   secondaryColor: "#d1d1d1",
-  textColor: "#333",
+  textColor: "#000000",
   accentColor: "#1a1a2e",
+  sidebarHover: "#ccc",
 };
 
 const darkTheme = {
-  // Dark theme: very dark backgrounds with white text
-  primaryColor: "#1e1e1e",   // Main background
-  secondaryColor: "#1a1a1a", // Sidebar, header, etc.
-  textColor: "#ffffff",      // White text
+  primaryColor: "#1e1e1e",
+  secondaryColor: "#121212",
+  textColor: "#ffffff",
   accentColor: "#10a37f",
+  sidebarHover: "#0c7a60",
 };
 
 const blueTheme = {
@@ -32,6 +33,7 @@ const blueTheme = {
   secondaryColor: "#a3c1da",
   textColor: "#333",
   accentColor: "#1a73e8",
+  sidebarHover: "#0f5fcf",
 };
 
 const greenTheme = {
@@ -39,9 +41,10 @@ const greenTheme = {
   secondaryColor: "#a5d6a7",
   textColor: "#333",
   accentColor: "#43a047",
+  sidebarHover: "#2c7c3d",
 };
 
-// Helper function for our CSS data-theme attribute.
+// Helper function for data-theme
 function getThemeName(themeObj) {
   if (themeObj === lightTheme) return "light";
   if (themeObj === darkTheme) return "dark";
@@ -55,18 +58,15 @@ function App() {
   const [theme, setTheme] = useState(lightTheme);
   const [showSettings, setShowSettings] = useState(false);
 
-  // Toggle the visibility of the settings panel.
   const toggleSettings = () => {
     setShowSettings((prev) => !prev);
   };
 
-  // Update the theme and hide the settings panel.
   const handleThemeChange = (selectedTheme) => {
     setTheme(selectedTheme);
     setShowSettings(false);
   };
 
-  // Render the appropriate section based on the currentSection state.
   const renderSection = () => {
     switch (currentSection) {
       case "home":
@@ -89,67 +89,37 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        {/* The data-theme attribute is used by our CSS for theming */}
         <div className="app-container" data-theme={getThemeName(theme)}>
           <div className="content-wrapper">
             <Sidebar className="app-sidebar">
-              {/* Profile Section at the Top */}
               <div className="sidebar-profile">
-                <img
-                  src={profileImage}  /* Replace with your profile image URL */
-                  alt="Profile"
-                  className="profile-img"
-                />
+                <img src={profileImage} alt="Profile" className="profile-img" />
                 <h2 className="profile-name">Emilio Gumma</h2>
                 <p className="profile-title">Software Engineer</p>
               </div>
 
-              {/* Navigation Menu */}
               <div className="sidebar-menu">
                 <Menu>
-                  <MenuItem onClick={() => setCurrentSection("home")}>
-                    Home
-                  </MenuItem>
-                  <MenuItem onClick={() => setCurrentSection("about")}>
-                    About
-                  </MenuItem>
-                  <MenuItem onClick={() => setCurrentSection("skills")}>
-                    Skills
-                  </MenuItem>
-                  <MenuItem onClick={() => setCurrentSection("experience")}>
-                    Experience
-                  </MenuItem>
-                  <MenuItem onClick={() => setCurrentSection("projects")}>
-                    Projects
-                  </MenuItem>
-                  <MenuItem onClick={() => setCurrentSection("contact")}>
-                    Contact
-                  </MenuItem>
+                  <MenuItem onClick={() => setCurrentSection("home")}>Home</MenuItem>
+                  <MenuItem onClick={() => setCurrentSection("about")}>About</MenuItem>
+                  <MenuItem onClick={() => setCurrentSection("skills")}>Skills</MenuItem>
+                  <MenuItem onClick={() => setCurrentSection("experience")}>Experience</MenuItem>
+                  <MenuItem onClick={() => setCurrentSection("projects")}>Projects</MenuItem>
+                  <MenuItem onClick={() => setCurrentSection("contact")}>Contact</MenuItem>
                 </Menu>
               </div>
 
-              {/* Settings Section at the Very Bottom */}
               <div className="sidebar-settings">
                 <button className="settings-toggle" onClick={toggleSettings}>
-                  <span className="settings-icon" role="img" aria-label="settings">
-                    ⚙️
-                  </span>
+                  <span className="settings-icon" role="img" aria-label="settings">⚙️</span>
                   <span className="settings-text">Settings</span>
                 </button>
                 {showSettings && (
                   <div className="theme-settings">
-                    <button onClick={() => handleThemeChange(lightTheme)}>
-                      Light
-                    </button>
-                    <button onClick={() => handleThemeChange(darkTheme)}>
-                      Dark
-                    </button>
-                    <button onClick={() => handleThemeChange(blueTheme)}>
-                      Blue
-                    </button>
-                    <button onClick={() => handleThemeChange(greenTheme)}>
-                      Green
-                    </button>
+                    <button onClick={() => handleThemeChange(lightTheme)}>Light</button>
+                    <button onClick={() => handleThemeChange(darkTheme)}>Dark</button>
+                    <button onClick={() => handleThemeChange(blueTheme)}>Blue</button>
+                    <button onClick={() => handleThemeChange(greenTheme)}>Green</button>
                   </div>
                 )}
               </div>

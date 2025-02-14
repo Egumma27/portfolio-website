@@ -1,47 +1,50 @@
-/* Define default (light) theme variables */
+/* Default (Light) Theme Variables */
 :root {
   --primary-color: #f0f2f5;
   --secondary-color: #d1d1d1;
-  --text-color: #333;
+  --text-color: #000000;
   --accent-color: #1a1a2e;
+  --sidebar-hover: #767676;
 }
 
-/* Light theme */
+/* Light Theme */
 [data-theme="light"] {
   --primary-color: #f0f2f5;
   --secondary-color: #d1d1d1;
-  --text-color: #333;
+  --text-color: #000000;
   --accent-color: #1a1a2e;
+  --sidebar-hover: #767676;
 }
 
-/* Dark theme: Updated to be very dark */
+/* Dark Theme */
 [data-theme="dark"] {
-  --primary-color: #1e1e1e;    /* Main background */
-  --secondary-color: #1a1a1a;  /* Sidebar, header, etc. */
-  --text-color: #ffffff;       /* White text */
+  --primary-color: #1e1e1e;
+  --secondary-color: #121212;
+  --text-color: #ffffff;
   --accent-color: #10a37f;
+  --sidebar-hover: #0c7a60;
 }
 
-/* Blue theme */
+/* Blue Theme */
 [data-theme="blue"] {
   --primary-color: #e8f0fe;
   --secondary-color: #a3c1da;
   --text-color: #333;
   --accent-color: #1a73e8;
+  --sidebar-hover: #0f5fcf;
 }
 
-/* Green theme */
+/* Green Theme */
 [data-theme="green"] {
   --primary-color: #e8f5e9;
   --secondary-color: #a5d6a7;
   --text-color: #333;
   --accent-color: #43a047;
+  --sidebar-hover: #2c7c3d;
 }
 
 /* Global Styles */
-body,
-html,
-#root {
+body, html, #root {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -50,38 +53,44 @@ html,
   color: var(--text-color);
 }
 
-/* App container */
 .app-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Main Layout: Sidebar and Content Area */
 .content-wrapper {
   display: flex;
   flex: 1;
+  height: 100vh;
+  overflow: hidden;
 }
 
-/* Sidebar (Nav Bar) Styling */
+/* Sidebar Styling */
 .app-sidebar {
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--secondary-color) !important;
-  color: var(--text-color);
-  width: 250px; /* Adjust as needed */
-  padding: 0 0 20px; /* Remove top padding; only bottom padding */
+  justify-content: space-between;
+  background-color: var(--secondary-color);
+  width: 250px;
+  padding: 0;
+  border-right: none !important;
 }
 
-/* Hide default sidebar header if rendered by react-pro-sidebar */
-.app-sidebar .ps-sidebar-header {
-  display: none;
+/* Ensure Sidebar Fully Adapts */
+.ps-sidebar-container {
+  color: var(--text-color);
+  background-color: var(--secondary-color) !important;
+  min-height: 100vh;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 /* Sidebar Profile Section */
 .sidebar-profile {
   text-align: center;
-  margin-bottom: 20px;
   padding: 20px 0;
 }
 
@@ -90,17 +99,14 @@ html,
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  margin: 0 auto;
 }
 
 .profile-name {
-  margin: 10px 0 5px;
   font-size: 1.2em;
   color: var(--text-color);
 }
 
 .profile-title {
-  margin: 0;
   font-size: 0.9em;
   color: var(--text-color);
 }
@@ -110,57 +116,56 @@ html,
   flex: 1;
 }
 
-.app-sidebar .ps-menu {
-  background-color: transparent; /* Let our sidebar container dictate background */
+/* 🛠️ Sidebar Button Default Style */
+.app-sidebar .ps-menu-button {
+  color: var(--text-color) !important;
+  background-color: transparent !important; /* No default background */
+  padding: 12px 20px;
+  border-radius: 6px;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-.app-sidebar .ps-menu .ps-menu-button {
-  color: var(--text-color);
-  padding: 10px 20px;
-  transition: background 0.3s ease;
+/* 🛠️ Sidebar Button Hover & Active (Forced) */
+.app-sidebar .ps-menu-button:hover,
+.app-sidebar .ps-menu-button.ps-active {
+  background-color: var(--sidebar-hover) !important;
+  color: var(--primary-color) !important;
 }
 
-.app-sidebar .ps-menu .ps-menu-button:hover,
-.app-sidebar .ps-menu .ps-menu-button.active {
+/* Settings Section */
+.sidebar-settings {
+  padding: 15px 20px;
+  text-align: left;
+}
+
+/* Settings Button */
+.settings-toggle {
   background-color: var(--accent-color);
   color: var(--primary-color);
-}
-
-/* Sidebar Settings: pinned at the very bottom */
-.sidebar-settings {
-  margin-top: auto;
-  padding: 10px 20px;
-  border-top: 1px solid var(--secondary-color);
-  text-align: left;
-}
-
-/* Settings toggle styled like a nav bar item */
-.settings-toggle {
-  background: none;
-  border: none;
-  padding: 10px 0;
+  padding: 12px;
   width: 100%;
-  text-align: left;
-  color: var(--text-color);
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease;
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 1rem;
+  transition: background 0.3s ease, transform 0.1s ease;
+  border: none;
 }
 
-.settings-toggle:hover,
-.settings-toggle.active {
-  background-color: var(--accent-color);
+/* Settings Button Hover */
+.settings-toggle:hover {
+  background-color: var(--sidebar-hover);
   color: var(--primary-color);
 }
 
-.settings-icon {
-  font-size: 1.2em;
+/* Click Effect */
+.settings-toggle:active {
+  transform: scale(0.98);
 }
 
-/* Settings panel within the sidebar */
+/* Settings Panel */
 .theme-settings {
   margin-top: 10px;
   display: flex;
@@ -171,20 +176,22 @@ html,
 .theme-settings button {
   background-color: var(--secondary-color);
   color: var(--text-color);
-  border: none;
+  border: 1px solid var(--accent-color);
   padding: 10px 20px;
-  text-align: left;
+  text-align: center;
   width: 100%;
+  border-radius: 6px;
   cursor: pointer;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
+/* Theme Button Hover */
 .theme-settings button:hover {
   background-color: var(--accent-color);
   color: var(--primary-color);
 }
 
-/* Main Content styling */
+/* Main Content */
 .main-content {
   flex: 1;
   padding: 20px;

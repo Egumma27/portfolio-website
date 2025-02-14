@@ -6,7 +6,7 @@
   
   .projects-heading {
     font-size: 2em;
-    color: #333;
+    color: var(--text-color);
     text-align: center;
     margin-bottom: 30px;
   }
@@ -19,13 +19,13 @@
   
   .project-title {
     font-size: 1.5em;
-    color: #222;
+    color: var(--text-color);
     margin-bottom: 10px;
   }
   
   .project-list {
     font-size: 1em;
-    color: #555;
+    color: var(--text-color);
     line-height: 1.6;
     padding-left: 20px;
   }

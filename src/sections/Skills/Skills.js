@@ -53,6 +53,16 @@ function Skills() {
       proficiency: "Advanced",
       details: "Extensive experience in web development using modern frameworks.",
     },
+    {
+      skill: "React",
+      proficiency: "Advanced",
+      details: "Extensive experience in web development using modern frameworks.",
+    },
+    {
+      skill: "C#",
+      proficiency: "Intermediate",
+      details: "Extensive experience in web development using modern frameworks.",
+    },
     // Add additional skills here...
   ];
 

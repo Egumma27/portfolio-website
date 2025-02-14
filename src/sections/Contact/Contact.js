@@ -30,7 +30,7 @@ function Contact() {
             className="linkedin-logo"
           />
         </a>
-        <span className="linkedin-text">Connect with me on LinkedIn</span>
+        <a href="https://www.linkedin.com/in/emilio-gumma-165630254/"target="_blank" rel="noopener noreferrer"className="linkedin-text">Connect with me on LinkedIn</a>
       </div>
     </div>
   );
