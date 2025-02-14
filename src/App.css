@@ -116,20 +116,83 @@ body, html, #root {
   flex: 1;
 }
 
-/* 🛠️ Sidebar Button Default Style */
+/* Sidebar Button Styling */
 .app-sidebar .ps-menu-button {
   color: var(--text-color) !important;
-  background-color: transparent !important; /* No default background */
-  padding: 12px 20px;
+  background-color: transparent !important;
+  padding: 14px 20px;
+  font-size: 1rem;
   border-radius: 6px;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* 🛠️ Sidebar Button Hover & Active (Forced) */
+/* Sidebar Button Hover & Active */
 .app-sidebar .ps-menu-button:hover,
 .app-sidebar .ps-menu-button.ps-active {
   background-color: var(--sidebar-hover) !important;
   color: var(--primary-color) !important;
+}
+
+/* 📌 Mobile Sidebar: Hide by Default */
+@media (max-width: 768px) {
+  .app-sidebar {
+    position: fixed;
+    left: -100%;
+    width: 250px;
+    height: 100vh;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+  }
+
+  .sidebar-open .app-sidebar {
+    left: 0;
+  }
+
+  .sidebar-closed .app-sidebar {
+    left: -100%;
+  }
+
+  .mobile-toggle {
+    display: block;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1100;
+  }
+
+  .mobile-toggle:hover {
+    background-color: var(--sidebar-hover);
+  }
+
+  .content-wrapper {
+    margin-left: 0;
+  }
+}
+
+/* 📌 Desktop Sidebar: Show Normally (Overlay Layout) */
+@media (min-width: 769px) {
+  .mobile-toggle {
+    display: none;
+  }
+
+  .app-sidebar {
+    left: 0;
+    position: static;
+    width: 250px;
+    transition: none;
+  }
+
+  /* Remove the left margin so the sidebar overlays the content */
+  .content-wrapper {
+    margin-left: 0;
+  }
 }
 
 /* Settings Section */

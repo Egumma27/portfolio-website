@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ThemeProvider } from "@emotion/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
@@ -17,7 +17,7 @@ const lightTheme = {
   secondaryColor: "#d1d1d1",
   textColor: "#000000",
   accentColor: "#1a1a2e",
-  sidebarHover: "#ccc",
+  sidebarHover: "#767676",
 };
 
 const darkTheme = {
@@ -44,7 +44,7 @@ const greenTheme = {
   sidebarHover: "#2c7c3d",
 };
 
-// Helper function for data-theme
+// Helper function for theme switching
 function getThemeName(themeObj) {
   if (themeObj === lightTheme) return "light";
   if (themeObj === darkTheme) return "dark";
@@ -56,15 +56,39 @@ function getThemeName(themeObj) {
 function App() {
   const [currentSection, setCurrentSection] = useState("home");
   const [theme, setTheme] = useState(lightTheme);
-  const [showSettings, setShowSettings] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(true); // Always visible on PC, toggle on mobile
+  const [isMobile, setIsMobile] = useState(false);
+  const [showThemeSettings, setShowThemeSettings] = useState(false); // Toggle for settings
 
-  const toggleSettings = () => {
-    setShowSettings((prev) => !prev);
+  // Detect screen size and update sidebar visibility
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsMobile(true);
+        setShowSidebar(false); // Hide sidebar on mobile initially
+      } else {
+        setIsMobile(false);
+        setShowSidebar(true); // Show sidebar on PC
+      }
+    };
+
+    handleResize(); // Run on initial load
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const toggleSidebar = () => {
+    setShowSidebar((prev) => !prev);
+  };
+
+  const toggleThemeSettings = () => {
+    setShowThemeSettings((prev) => !prev);
   };
 
   const handleThemeChange = (selectedTheme) => {
     setTheme(selectedTheme);
-    setShowSettings(false);
+    setShowThemeSettings(false); // Close settings after selecting a theme
   };
 
   const renderSection = () => {
@@ -90,40 +114,49 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <div className="app-container" data-theme={getThemeName(theme)}>
-          <div className="content-wrapper">
-            <Sidebar className="app-sidebar">
-              <div className="sidebar-profile">
-                <img src={profileImage} alt="Profile" className="profile-img" />
-                <h2 className="profile-name">Emilio Gumma</h2>
-                <p className="profile-title">Software Engineer</p>
-              </div>
+          {/* 📌 Mobile Sidebar Toggle Button (Only Visible on Mobile) */}
+          {isMobile && (
+            <button className="mobile-toggle" onClick={toggleSidebar}>
+              {showSidebar ? "✖ Close" : "☰ Menu"}
+            </button>
+          )}
 
-              <div className="sidebar-menu">
-                <Menu>
-                  <MenuItem onClick={() => setCurrentSection("home")}>Home</MenuItem>
-                  <MenuItem onClick={() => setCurrentSection("about")}>About</MenuItem>
-                  <MenuItem onClick={() => setCurrentSection("skills")}>Skills</MenuItem>
-                  <MenuItem onClick={() => setCurrentSection("experience")}>Experience</MenuItem>
-                  <MenuItem onClick={() => setCurrentSection("projects")}>Projects</MenuItem>
-                  <MenuItem onClick={() => setCurrentSection("contact")}>Contact</MenuItem>
-                </Menu>
-              </div>
+          <div className={`content-wrapper ${showSidebar ? "sidebar-open" : "sidebar-closed"}`}>
+            {showSidebar && (
+              <Sidebar className="app-sidebar">
+                <div className="sidebar-profile">
+                  <img src={profileImage} alt="Profile" className="profile-img" />
+                  <h2 className="profile-name">Emilio Gumma</h2>
+                  <p className="profile-title">Software Engineer</p>
+                </div>
 
-              <div className="sidebar-settings">
-                <button className="settings-toggle" onClick={toggleSettings}>
-                  <span className="settings-icon" role="img" aria-label="settings">⚙️</span>
-                  <span className="settings-text">Settings</span>
-                </button>
-                {showSettings && (
-                  <div className="theme-settings">
-                    <button onClick={() => handleThemeChange(lightTheme)}>Light</button>
-                    <button onClick={() => handleThemeChange(darkTheme)}>Dark</button>
-                    <button onClick={() => handleThemeChange(blueTheme)}>Blue</button>
-                    <button onClick={() => handleThemeChange(greenTheme)}>Green</button>
-                  </div>
-                )}
-              </div>
-            </Sidebar>
+                <div className="sidebar-menu">
+                  <Menu>
+                    <MenuItem onClick={() => setCurrentSection("home")}>Home</MenuItem>
+                    <MenuItem onClick={() => setCurrentSection("about")}>About</MenuItem>
+                    <MenuItem onClick={() => setCurrentSection("skills")}>Skills</MenuItem>
+                    <MenuItem onClick={() => setCurrentSection("experience")}>Experience</MenuItem>
+                    <MenuItem onClick={() => setCurrentSection("projects")}>Projects</MenuItem>
+                    <MenuItem onClick={() => setCurrentSection("contact")}>Contact</MenuItem>
+                  </Menu>
+                </div>
+
+                {/* 🛠️ Settings Section */}
+                <div className="sidebar-settings">
+                  <button className="settings-toggle" onClick={toggleThemeSettings}>
+                    ⚙️ Settings
+                  </button>
+                  {showThemeSettings && (
+                    <div className="theme-settings">
+                      <button onClick={() => handleThemeChange(lightTheme)}>Light</button>
+                      <button onClick={() => handleThemeChange(darkTheme)}>Dark</button>
+                      <button onClick={() => handleThemeChange(blueTheme)}>Blue</button>
+                      <button onClick={() => handleThemeChange(greenTheme)}>Green</button>
+                    </div>
+                  )}
+                </div>
+              </Sidebar>
+            )}
 
             <main className="main-content">{renderSection()}</main>
           </div>
